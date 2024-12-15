@@ -3,9 +3,13 @@
 
 #include <WiFi.h>
 #include <HTTPClient.h>
-#include "string.h"
+#include <string.h>
+
+extern WiFiServer server;
 
 void network_setup();
-void http_send_data(String dataToSend);
+
+void setup_wifi();
+void setup_server();
 
 #endif
