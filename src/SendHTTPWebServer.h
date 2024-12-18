@@ -2,8 +2,9 @@
 #define DEF_SEND_HTTP_WEB_SERVER
 
 #include "Network.h"
+#include <HTTPClient.h>
 #include <string.h>
 
-void http_send_data_to_web_page(String data);
+void http_send_data_to_web_server(String data);
 
 #endif

@@ -2,10 +2,12 @@
 #define DEF_NETWORK
 
 #include <WiFi.h>
-#include <HTTPClient.h>
 #include <string.h>
+#include "SendHTTPWebServer.h"
 
 extern WiFiServer server;
+extern const char* ssid;
+extern const char* password;
 
 void network_setup();
 

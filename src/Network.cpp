@@ -3,7 +3,6 @@
 //Network Settings
 const char* ssid = "";
 const char* password = "";
-HTTPClient httpclient;
 WiFiServer server(80);
 
 // Network Setup

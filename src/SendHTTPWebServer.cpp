@@ -4,10 +4,12 @@
 String http_request_header = "";
 int last_time = 0;
 
-void http_send_data_to_web_page(String data)
+HTTPClient httpclient;
+
+void http_send_data_to_web_server(String data)
 {
   int time_to_wait = 5000;
-    // Listener for incoming clients
+  // Listener for incoming clients
   WiFiClient client = server.available();
   
   if(client){ //if a new client connects (On listener)

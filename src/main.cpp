@@ -8,6 +8,8 @@ la mesure de l'humiditié par le sensor toutes les 1 s */
 #include "Network.h"
 #include "SendHTTPWebServer.h"
 
+#include <WiFi.h>
+
 void setup(void)
 {
   //Set the baudrate to 115200
@@ -18,6 +20,7 @@ void setup(void)
 
   //network init
   network_setup();
+
 }
 
 void loop(void)
@@ -26,7 +29,7 @@ void loop(void)
   sensor_data_acquisition();
   
   //WebPage Send Data
-  http_send_data_to_web_page(String(humidity));
+  http_send_data_to_web_server(String(humidity));
 
   //TO DO Grafana with influxdb to visualize datas on a dashboard
 
