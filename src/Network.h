@@ -8,7 +8,6 @@
 extern WiFiServer server;
 
 void network_setup();
-
 void setup_wifi();
 void setup_server();
 

@@ -6,7 +6,6 @@ la mesure de l'humiditié par le sensor toutes les 1 s */
 #include "Sensors.h"
 #include "Actuators.h"
 #include "Network.h"
-#include "SendHTTPWebServer.h"
 
 void setup(void)
 {
@@ -24,11 +23,6 @@ void loop(void)
 {
   //Measure Humidity with Sensors
   sensor_data_acquisition();
-  
-  //WebPage Send Data
-  http_send_data_to_web_page(String(humidity));
-
-  //TO DO Grafana with influxdb to visualize datas on a dashboard
 
   //Irrigation
   pump_irrigation_automation();
