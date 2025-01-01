@@ -14,6 +14,25 @@ const char* mqtt_topic = "/test/topic";   // Sujet utilisé pour les messages
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+// Fonction pour publier une donnée sur un topic MQTT
+void sendData(const char* topic, const char* payload) {
+    if (!client.connected()) {
+        reconnect();
+    }
+    client.loop(); // Gestion des tâches MQTT
+
+    // Envoi du message
+    if (client.publish(topic, payload)) {
+        Serial.println("Message envoyé avec succès !");
+        Serial.print("Topic : ");
+        Serial.println(topic);
+        Serial.print("Payload : ");
+        Serial.println(payload);
+    } else {
+        Serial.println("Échec de l'envoi du message.");
+    }
+}
+
 // Callback pour recevoir les messages
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message reçu sur le sujet : ");
@@ -80,6 +99,9 @@ void loop(void)
   }
 
   //TO DO Grafana with influxdb to visualize datas on a dashboard
+
+  sendData("esp32/test", "Ceci est un message test");
+  delay(5000)
 
   //Irrigation
   pump_irrigation_automation();
