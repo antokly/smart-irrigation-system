@@ -4,6 +4,7 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <string.h>
+#include "SISconfig.h"
 
 extern WiFiServer server;
 

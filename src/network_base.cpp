@@ -1,8 +1,5 @@
-#include "Network.h"
+#include "network_base.h"
 
-//Network Settings
-const char* ssid = "";
-const char* password = "";
 HTTPClient httpclient;
 WiFiServer server(80);
 

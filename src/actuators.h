@@ -1,9 +1,8 @@
 #ifndef DEF_ACTUATORS
 #define DEF_ACTUATORS
 
-#include "Sensors.h"
+#include "sensors.h"
 
 void pump_init();
-void pump_irrigation_automation();
-
+void pump_irrigation(uint8_t moisture);
 #endif

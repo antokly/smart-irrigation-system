@@ -3,8 +3,6 @@
 
 #include <Arduino.h>
 
-extern uint8_t humidity;
-
-void sensor_data_acquisition();
+uint8_t sensor_data_acquisition(void);
 
 #endif
