@@ -5,6 +5,18 @@
 #include "SISconfig.h"
 #include "mqtt_manager.h"
 
+uint8_t humidity = 0;
+String humidityStr = " ";
+uint32_t lastMeasureTime = 0;
+
+/**
+ * TODO:
+ * 1. Connect the downlink Commands by MQTT with actions to execute (merge MQTT brange)
+ * 2. Compute average value of measures on 10 cycles (in a tab) before activate pump
+ * 3. Develop sensors structure templates to facilitate new interfacing
+ * 4. Develop Python app on Broker to display data on RT graph and dashboards
+ */
+
 void setup(void)
 {
   //  Set the baudrate to 115200
@@ -23,21 +35,20 @@ void setup(void)
 
 void loop(void)
 {
-  //  Humidity Measuring
-  uint8_t humidity = sensor_data_acquisition();
-  String humidityStr = String(humidity);
-
-  //  Send humidity data every 5 sec
-  static unsigned long lastMsg = 0;
-  unsigned long actualTs = millis();
-  if (actualTs - lastMsg > 5000) {
-    String message = "Hello, MQTT! New Data just Popped : " + humidityStr;
-    mqtt_send_data("/test/topic", message.c_str()); // Convert String to C-string
-    lastMsg = actualTs;
+  // Make a timer for sensor data acquisition AND compute the mean of the datas collected during this time intervalle
+  //  Humidity Measuring Data // TODO Structure to getData
+  // MQTT Send Data
+  if (millis() - lastMeasureTime >= measureInterval) {
+    humidity = get_sensor_data();
+    humidityStr = String(humidity);
+    lastMeasureTime = millis();
   }
+   
+  // MQTT Send Data AND Callback Loop to receive commands
+  mqtt_loop(humidityStr);
 
   //  Irrigation
   pump_irrigation(humidity);
 
-  delay(1000);
+  delay(500);
 }

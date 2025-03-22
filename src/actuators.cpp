@@ -2,7 +2,7 @@
 
 const int pump_pin = 26;
 
-void pump_init()
+void pump_init(void)
 {
   pinMode(pump_pin, OUTPUT);
 }
