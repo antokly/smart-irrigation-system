@@ -1,16 +1,7 @@
-#include "network_base.h"
-
-HTTPClient httpclient;
-WiFiServer server(80);
-
-// Network Setup
-void network_setup() {
-    setup_wifi();
-    setup_server();
-}
+#include "wifi.h"
 
 // WIFI SETUP (On the Client)
-void setup_wifi() {
+void wifi_setup() {
     Serial.println("Setting up WiFi...");
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, password);
@@ -35,11 +26,4 @@ void setup_wifi() {
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
     Serial.println("WiFi Setup Done!\n");
-}
-
-// SERVER SETUP
-void setup_server() {
-    Serial.println("Setting up server...");
-    server.begin();
-    Serial.println("Server is up and running!\n");
 }

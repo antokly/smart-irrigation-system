@@ -1,4 +1,4 @@
-#include "mqtt_manager.h"
+#include "sendMQTT.h"
 #include "sensor.h"
 
 // Connection layer
@@ -63,6 +63,7 @@ void callback(char* topic, byte* payload, unsigned int length)
             return; // Ignore messages that are too frequent
         }
         lastMessageTime = now;
+
 #ifdef COM_LOG_ENABLE
         Serial.print("Message received on ");
         Serial.print(topic);
@@ -72,6 +73,7 @@ void callback(char* topic, byte* payload, unsigned int length)
         }
         Serial.println();
 #endif
+
   }
 }
 

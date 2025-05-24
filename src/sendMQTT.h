@@ -1,7 +1,7 @@
 #ifndef DEF_MQTT_MAN
 #define DEF_MQTT_MAN
 
-#include "SISconfig.h"
+#include "sis_config.h"
 
 #include <WiFi.h>
 #include <PubSubClient.h>

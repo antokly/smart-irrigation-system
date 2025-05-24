@@ -1,65 +1,52 @@
 #include <Arduino.h>
-<<<<<<< HEAD
-#include "Sensors.h"
-#include "Actuators.h"
-#include "Network.h"
-=======
 #include "sensors.h"
 #include "actuators.h"
-#include "network_base.h"
-#include "SISconfig.h"
-#include "mqtt_manager.h"
+#include "wifi.h"
+#include "sis_config.h"
+#include "sendMQTT.h"
 
-uint8_t humidity = 0;
+uint32_t humidity = 0;
 String humidityStr = " ";
 uint32_t lastMeasureTime = 0;
 
 /**
  * TODO:
- * 1. Connect the downlink Commands by MQTT with actions to execute (merge MQTT brange)
- * 2. Compute average value of measures on 10 cycles (in a tab) before activate pump
+ * 1. Connect the downlink Commands by MQTT with actions to execute (merge MQTT branch)
+ * 2. Improve sensor measures quality on 10 cycles (in a tab) before activate pump
  * 3. Develop sensors structure templates to facilitate new interfacing
- * 4. Develop Python app on Broker to display data on RT graph and dashboards
+ * 4. Develop Python App on Broker to display datas on RT graph and dashboards
  */
->>>>>>> branch_MQTT_com
 
 void setup(void)
 {
-  //  Set the baudrate to 115200
-  Serial.begin(115200);
-
-  //  Pump init
-  pump_init();
-
-  //  Network init
-  network_setup();
-
-  //  MQTT setup
-  mqtt_setup();
-
+  delay(500);
+  Serial.begin(115200); // Set the baudrate to 115200
+  sensor_setup(MOISTURE_SENSOR_VCC);
+  pump_init(); // Pump init
+  wifi_setup(); //  Network init
+  mqtt_setup(); // MQTT setup
 }
 
 void loop(void)
 {
-<<<<<<< HEAD
-  //Measure Humidity with Sensors
-  sensor_data_acquisition();
-=======
-  // Make a timer for sensor data acquisition AND compute the mean of the datas collected during this time intervalle
-  //  Humidity Measuring Data // TODO Structure to getData
-  // MQTT Send Data
-  if (millis() - lastMeasureTime >= measureInterval) {
-    humidity = get_sensor_data();
+
+  // Program Variables to declare : 
+  // Data to display on an OLED Display
+  // Next Reading Time
+  // Next Sending Time
+  // MeasuresPeriod sending from App
+  // TimeToSleep (in seconds)
+
+  // MQTT Send Data to App
+  if (millis() - lastMeasureTime >= readingMeasurePeriod) {
+    humidity = readSensor(MOISTURE_SENSOR_PIN, MOISTURE_SENSOR_VCC, samplesByMeasure);
     humidityStr = String(humidity);
     lastMeasureTime = millis();
   }
    
   // MQTT Send Data AND Callback Loop to receive commands
-  mqtt_loop(humidityStr);
+  mqtt_loop(humidityStr); //  Irrigation
 
-  //  Irrigation
   pump_irrigation(humidity);
->>>>>>> branch_MQTT_com
-
-  delay(500);
+  delay(100);
 }
