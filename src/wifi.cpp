@@ -1,10 +1,15 @@
 #include "wifi.h"
 
-// WIFI SETUP (On the Client)
-void wifi_setup() {
+/* Wifi setup */
+void setupWifi(SIS_Config *cfg)
+{
     Serial.println("Setting up WiFi...");
     WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, password);
+    Serial.print("SSID: ");
+    Serial.println(cfg->wifi_ssid);
+    Serial.print("Password: ");
+    Serial.println(cfg->wifi_pwd);
+    WiFi.begin(cfg->wifi_ssid.c_str(), cfg->wifi_pwd.c_str());
 
     unsigned long startTime = millis();
     const unsigned long timeout = 10000; // Timeout in ms
@@ -22,7 +27,7 @@ void wifi_setup() {
 
     Serial.println("\nWiFi connected!");
     Serial.print("Connected to ");
-    Serial.println(ssid);
+    Serial.println(cfg->wifi_ssid);
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
     Serial.println("WiFi Setup Done!\n");

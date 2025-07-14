@@ -1,9 +1,10 @@
 #ifndef DEF_ACTUATORS
 #define DEF_ACTUATORS
 
-#include "sensors.h"
+#include <Arduino.h>
+#include "default_config.h"
 
-void pump_init(void);
-void pump_irrigation(uint8_t moisture);
+void setupPump(void);
+void processPumpLogic(float value);
 
 #endif

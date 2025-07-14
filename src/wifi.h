@@ -3,9 +3,8 @@
 
 #include <WiFi.h>
 #include <HTTPClient.h>
-#include <string.h>
-#include "sis_config.h"
+#include "config_manager.h"
 
-void wifi_setup();
+void setupWifi(SIS_Config *cfg);
 
 #endif
